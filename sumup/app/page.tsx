@@ -35,7 +35,7 @@ export default function Home() {
             Take control of your finances with our next-generation budgeting app. Set goals, track spending, and watch your savings grow.
           </p>
           <div className="flex gap-4">
-            <Link href="/login">
+            <Link href="routes/login">
               <button className="bg-[#E87C3E] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#d66d35] transition-colors">
               Get Started <ArrowRight className="w-5 h-5" />
             </button>
