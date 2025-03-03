@@ -1,24 +1,24 @@
-import React from 'react';
-import { ArrowRight, PiggyBank, Shield, Sparkles } from 'lucide-react';
-import Link from 'next/link';
+import React from "react";
+import { ArrowRight, PiggyBank, Shield, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 export default function Home() {
   const features = [
     {
       icon: <PiggyBank className="w-6 h-6" />,
       title: "Smart Budgeting",
-      description: "Set and track your budgets with intelligent insights"
+      description: "Set and track your budgets with intelligent insights",
     },
     {
       icon: <Sparkles className="w-6 h-6" />,
       title: "Goal Planning",
-      description: "Save for your dreams with personalized milestones"
+      description: "Save for your dreams with personalized milestones",
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: "Secure & Private",
-      description: "Bank-level security to protect your financial data"
-    }
+      description: "Bank-level security to protect your financial data",
+    },
   ];
 
   return (
@@ -32,13 +32,14 @@ export default function Home() {
             <span className="text-[#E87C3E]"> financial goals</span>
           </h2>
           <p className="text-xl text-gray-600">
-            Take control of your finances with our next-generation budgeting app. Set goals, track spending, and watch your savings grow.
+            Take control of your finances with our next-generation budgeting
+            app. Set goals, track spending, and watch your savings grow.
           </p>
           <div className="flex gap-4">
-            <Link href="routes/login">
+            <Link href="/sign-up">
               <button className="bg-[#E87C3E] text-white px-6 py-3 rounded-lg font-semibold flex items-center gap-2 hover:bg-[#d66d35] transition-colors">
-              Get Started <ArrowRight className="w-5 h-5" />
-            </button>
+                Get Started <ArrowRight className="w-5 h-5" />
+              </button>
             </Link>
             <button className="border-2 border-[#E87C3E] text-[#E87C3E] px-6 py-3 rounded-lg font-semibold hover:bg-[#fff5cd] transition-colors">
               Learn More
@@ -58,7 +59,9 @@ export default function Home() {
                   {feature.icon}
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg text-gray-900">{feature.title}</h3>
+                  <h3 className="font-semibold text-lg text-gray-900">
+                    {feature.title}
+                  </h3>
                   <p className="text-gray-600">{feature.description}</p>
                 </div>
               </div>
