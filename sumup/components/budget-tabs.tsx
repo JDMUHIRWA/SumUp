@@ -6,32 +6,37 @@ interface BudgetTabsProps {
   onTabChange: (value: string) => void;
 }
 
-export default function BudgetTabs({
-  activeTab,
-  onTabChange,
-}: BudgetTabsProps) {
+export default function BudgetTabs({}: BudgetTabsProps) {
   return (
-    <Tabs value={activeTab} onValueChange={onTabChange} className="w-full">
-      <TabsList className="w-full grid grid-cols-3 rounded-md">
-        <TabsTrigger
-          value="bank"
-          className={`rounded-md py-2 ${activeTab === "bank" ? "bg-amber-400 text-black" : ""}`}
-        >
-          Bank of Kigali
-        </TabsTrigger>
-        <TabsTrigger
-          value="mobile"
-          className={`rounded-md py-2 ${activeTab === "mobile" ? "bg-amber-400 text-black" : ""}`}
-        >
-          Mobile Money
-        </TabsTrigger>
-        <TabsTrigger
-          value="cash"
-          className={`rounded-md py-2 ${activeTab === "cash" ? "bg-amber-400 text-black" : ""}`}
-        >
-          Cash Account
-        </TabsTrigger>
-      </TabsList>
-    </Tabs>
+    <>
+      <Tabs defaultValue="bk" className="w-[595px]">
+        <TabsList className="bg-gray-200 w-full flex justify-start h-[35px] gap-4">
+          <TabsTrigger
+            value="overall"
+            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-nomral w-1/3"
+          >
+            Overall
+          </TabsTrigger>
+          <TabsTrigger
+            value="bk"
+            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-nomral w-1/3"
+          >
+            Bank of Kigali
+          </TabsTrigger>
+          <TabsTrigger
+            value="momo"
+            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-nomral w-1/3"
+          >
+            Mobile Money
+          </TabsTrigger>
+          <TabsTrigger
+            value="cash"
+            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-normal w-1/3"
+          >
+            Cash Account
+          </TabsTrigger>
+        </TabsList>
+      </Tabs>
+    </>
   );
 }
