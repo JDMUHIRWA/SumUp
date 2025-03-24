@@ -49,7 +49,7 @@ export default function AddBudgetForm() {
         remaining: parsedAmount,
         spent: parsedAmount,
         date: "2025-03-13",
-        userId: currentUser?._id,
+        userId: currentUser?._id || "",
       });
 
       // Reset form fields after successful submission
@@ -68,7 +68,7 @@ export default function AddBudgetForm() {
     <>
       <Card className="w-full">
         <CardContent className="p-4">
-          <h3 className="font-medium text-center">Add Budget</h3>
+          <h3 className="font-medium text-center mb-6">Add Budget</h3>
 
           {/* Form for entering budget details */}
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -100,7 +100,7 @@ export default function AddBudgetForm() {
                   onChange={(e) => setAmount(e.target.value)}
                   className="w-full"
                   type="text"
-                  prefix={<span>RWF</span>}
+                  prefix="RWF"
                 />
               </div>
             </div>
@@ -143,7 +143,7 @@ export default function AddBudgetForm() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-orange-500">
+            <Button type="submit" className="w-full bg-[#ffc23c] text-black">
               Add Budget
             </Button>
           </form>

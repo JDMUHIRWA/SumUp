@@ -19,7 +19,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuTrigger,
+  //   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import {
@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center">
         {/* <Input
           placeholder="Filter names..."
           value={
@@ -82,11 +82,11 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         /> */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          {/* <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns
             </Button>
-          </DropdownMenuTrigger>
+          </DropdownMenuTrigger> */}
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()
@@ -161,7 +161,7 @@ export function DataTable<TData, TValue>({
 
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
@@ -169,7 +169,7 @@ export function DataTable<TData, TValue>({
           Previous
         </Button>
         <Button
-          variant="outline"
+          variant="ghost"
           size="sm"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}

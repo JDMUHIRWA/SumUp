@@ -19,7 +19,7 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuTrigger,
+  //   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
 import {
@@ -70,7 +70,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex items-center py-4">
+      <div className="flex items-center">
         {/* <Input
           placeholder="Filter names..."
           value={
@@ -82,11 +82,11 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         /> */}
         <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+          {/* <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">
               Columns
             </Button>
-          </DropdownMenuTrigger>
+          </DropdownMenuTrigger> */}
           <DropdownMenuContent align="end">
             {table
               .getAllColumns()

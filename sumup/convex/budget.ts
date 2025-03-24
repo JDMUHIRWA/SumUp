@@ -9,7 +9,7 @@ export const create = mutation({
     spent: v.float64(),
     date: v.string(),
     accounts: v.string(),
-    userId: v.id("users"),
+    userId: v.string(),
   },
   handler: async (ctx, args) => {
     return await ctx.db.insert("budgets", args);
@@ -26,3 +26,5 @@ export const getBudgetsByUser = query({
       .collect();
   },
 });
+
+

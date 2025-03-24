@@ -40,11 +40,10 @@ export default function Payments() {
           <h1 className="text-2xl font-semibold text-gray-800 mt-20 sm:mt-10">
             Payments
           </h1>
-          <div className="my-3 ">
-            <Tab />
-          </div>
-
-          <div className="container mx-auto py-1">
+          <div className="mx-auto relative mt-4">
+            <div className="absolute top-4">
+              <Tab />
+            </div>
             <DataTable columns={columns} data={data} />
           </div>
         </main>

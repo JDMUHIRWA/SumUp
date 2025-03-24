@@ -2,9 +2,26 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
 import { Chart } from "@/components/chart";
 import { Notifications } from "@/components/notifications";
-import { Transaction } from "@/components/transaction";
 import Header from "@/components/header";
 import Tab from "@/components/tabs";
+import { DataTable } from "./data-table";
+import { Payment, columns } from "./columns";
+
+async function getData(): Promise<Payment[]> {
+  // Fetch data from your API here.
+  return [
+    {
+      id: "728ed52f",
+      category: "Food",
+    },
+    {
+      id: "489e1d42",
+      category: "Transport",
+    },
+  ];
+}
+
+const data = await getData();
 
 export default function Dashboard() {
   function StatCard({
@@ -59,14 +76,12 @@ export default function Dashboard() {
             Transaction Summary
           </h1>
 
-          <div className="my-3 ">
+          <div className="my-4 ">
             <Tab />
           </div>
 
           {/* Transaction Table */}
-          <div>
-            <Transaction />
-          </div>
+          <DataTable columns={columns} data={data} />
         </main>
       </div>
     </SidebarProvider>
