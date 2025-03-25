@@ -1,134 +1,47 @@
-"use client";
-
-import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
-// import { Checkbox } from "@/components/ui/checkbox";
+// columns.tsx
 
 import { Button } from "@/components/ui/button";
+import { MoreHorizontal } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
-import { ArrowUpDown } from "lucide-react";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-export type Payment = {
-  id: string;
-  category: string;
+export type Category = {
+  _id: string;
+  name: string;
 };
 
-export const columns: ColumnDef<Payment>[] = [
-  //   {
-  //     id: "select",
-  //     header: ({ table }) => (
-  //       <Checkbox
-  //         checked={
-  //           table.getIsAllPageRowsSelected() ||
-  //           (table.getIsSomePageRowsSelected() && "indeterminate")
-  //         }
-  //         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-  //         aria-label="Select all"
-  //       />
-  //     ),
-  //     cell: ({ row }) => (
-  //       <Checkbox
-  //         checked={row.getIsSelected()}
-  //         onCheckedChange={(value) => row.toggleSelected(!!value)}
-  //         aria-label="Select row"
-  //       />
-  //     ),
-  //     size: 50,
-  //     enableSorting: false,
-  //     enableHiding: false,
-  //   },
-  //   {
-  //     accessorKey: "status",
-  //     header: "Status",
-  //   },
+export const columns = [
   {
-    accessorKey: "category",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className=" w-full  justify-start p-2"
-      >
-        Category
-        <ArrowUpDown className="ml-1 h-4 w-4" />
-      </Button>
-    ),
-    cell: ({ row }) => <div className="p-2">{row.getValue("category")}</div>,
+    accessorKey: "name",
+    header: "Category",
+    cell: ({ row }) => <div className="p-2">{row.getValue("name")}</div>,
   },
 
-  //   {
-  //     accessorKey: "date",
-  //     header: ({ column }) => {
-  //       return (
-  //         <Button
-  //           variant="ghost"
-  //           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //         >
-  //           Date
-  //           <ArrowUpDown className="ml-2 h-4 w-4" />
-  //         </Button>
-  //       );
-  //     },
-  //   },
-
-  // {
-  //   accessorKey: "Recepient",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Recepient
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  // },
-  //   {
-  //     accessorKey: "invoice",
-  //     header: ({ column }) => {
-  //       return (
-  //         <Button
-  //           variant="ghost"
-  //           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //         >
-  //           Invoice
-  //           <ArrowUpDown className="ml-2 h-4 w-4" />
-  //         </Button>
-  //       );
-  //     },
-  //   },
-
-  //   {
-  //     accessorKey: "amount",
-  //     header: () => <div className="">Amount</div>,
-  //     cell: ({ row }) => {
-  //       const amount = parseFloat(row.getValue("amount"));
-  //       const formatted = new Intl.NumberFormat("en-US", {
-  //         style: "currency",
-  //         currency: "USD",
-  //       }).format(amount);
-
-  //       return <div className="font-medium">{formatted}</div>;
-  //     },
-  //   },
-
+  // Actions column
   {
     id: "actions",
     header: () => <div className="text-right mx-4">Actions</div>,
     cell: ({ row }) => {
-      const payment = row.original;
+      const category = row.original;
+
+      // Use the mutation here within the cell renderer
+      const deleteCategory = useMutation(api.categories.deleteCategory);
+
+      const handleDelete = async () => {
+        try {
+          await deleteCategory({ _id: category._id });
+          console.log("Category deleted");
+        } catch (error) {
+          console.error("Error deleting category:", error);
+        }
+      };
 
       return (
         <div className="flex justify-end mx-5">
@@ -141,13 +54,9 @@ export const columns: ColumnDef<Payment>[] = [
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
-              <DropdownMenuItem
-                onClick={() => navigator.clipboard.writeText(payment.id)}
-              >
-                Download invoice
+              <DropdownMenuItem onClick={handleDelete}>
+                Delete Category
               </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Delete Invoice</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

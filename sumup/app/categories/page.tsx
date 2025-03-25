@@ -1,27 +1,23 @@
+"use client";
 import Buttons from "@/components/buttons";
 import Header from "@/components/header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import { Payment, columns } from "./columns";
+import { columns } from "./columns";
 import { DataTable } from "./data-table";
-
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      category: "Food",
-    },
-    {
-      id: "489e1d42",
-      category: "Transport",
-    },
-  ];
-}
-
-const data = await getData();
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 export default function Home() {
+  // get current user
+  const currentUser = useQuery(api.users.current);
+  const user = currentUser ? currentUser._id : undefined;
+
+  const data = useQuery(
+    api.categories.getCategoriesByUser,
+    user ? { userId: user } : "skip"
+  );
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
@@ -35,7 +31,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-6">
-            <DataTable columns={columns} data={data} />
+            <DataTable columns={columns} data={data || []} />
           </div>
         </main>
       </div>
