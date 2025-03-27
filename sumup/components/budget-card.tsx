@@ -53,7 +53,11 @@ export default function BudgetPage() {
               </CardDescription>
             </CardContent>
             <div className="px-4">
-              <Progress value={progress} className="w-full" />
+              <Progress
+                value={progress}
+                className="w-full bg-gray-200"
+                barColor="bg-[#ffc23c]"
+              />
               <p className="text-xs text-muted-foreground mt-1">
                 {progress.toFixed(1)}% used
               </p>
