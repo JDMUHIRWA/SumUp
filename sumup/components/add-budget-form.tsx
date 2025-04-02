@@ -143,7 +143,7 @@ export default function AddBudgetForm() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full bg-[#ffc23c] text-black">
+            <Button type="submit" className="w-full  text-black">
               Add Budget
             </Button>
           </form>

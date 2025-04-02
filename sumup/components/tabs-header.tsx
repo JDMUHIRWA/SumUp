@@ -1,39 +1,42 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { ProfileForm } from "@/components/general-settings";
+import { AccountSettings } from "@/components/account-settings";
+import { BudgetSettings } from "@/components/budget-settings";
 
 export default function Tab() {
   return (
-    <>
-      <Tabs
-        defaultValue="general"
-        className="w-[595px] border-[#e4e4e7] shadow-md"
-      >
-        <TabsList className="bg-white-200  w-full flex justify-start h-[35px] gap-4">
-          <TabsTrigger
-            value="general"
-            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-nomral w-1/3"
-          >
-            General
-          </TabsTrigger>
-          <TabsTrigger
-            value="account"
-            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-nomral w-1/3"
-          >
-            Account
-          </TabsTrigger>
-          <TabsTrigger
-            value="budget"
-            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-normal w-1/3"
-          >
-            Budget
-          </TabsTrigger>
-          <TabsTrigger
-            value="about-help"
-            className="data-[state=active]:bg-[#FFC23D] data-[state=active]:text-black data-[state=active]:font-normal w-1/3"
-          >
-            About & Help
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
-    </>
+    <Tabs defaultValue="general" className="">
+      <TabsList className="border-[#e4e4e7] border shadow-sm w-full flex justify-start h-[35px] gap-4">
+        <TabsTrigger
+          value="general"
+          className="w-full data-[state=active]:bg-[#FFC23D]"
+        >
+          General
+        </TabsTrigger>
+        <TabsTrigger
+          value="account"
+          className="w-full data-[state=active]:bg-[#FFC23D]"
+        >
+          Account
+        </TabsTrigger>
+        <TabsTrigger
+          value="budget"
+          className="w-full data-[state=active]:bg-[#FFC23D]"
+        >
+          Budget
+        </TabsTrigger>
+      </TabsList>
+
+      {/* Tab Content */}
+      <TabsContent value="general">
+        <ProfileForm />
+      </TabsContent>
+      <TabsContent value="account">
+        <AccountSettings />
+      </TabsContent>
+      <TabsContent value="budget">
+        <BudgetSettings />
+      </TabsContent>
+    </Tabs>
   );
 }

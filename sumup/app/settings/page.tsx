@@ -1,13 +1,12 @@
-// app/budget/page.tsx
+// app/settings/page.tsx
 "use client";
 
 import Header from "@/components/header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import Tab from "@/components/tabs-header";
-import { ProfileForm } from "@/components/settings-form";
 
-export default function Budget() {
+export default function Settings() {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
@@ -17,10 +16,6 @@ export default function Budget() {
 
           <div className="mt-24">
             <Tab />
-
-            <div className=" p-4  w-full">
-              <ProfileForm />
-            </div>
           </div>
         </main>
       </div>

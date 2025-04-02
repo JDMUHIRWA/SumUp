@@ -16,16 +16,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { DropdownMenuCheckboxes } from "@/components/settings-dropdown";
+// import { DropdownMenuCheckboxes } from "./settings-dropdown";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
 
 const formSchema = z.object({
   username: z
     .string()
     .min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email({ message: "Invalid email address." }),
-  phone: z
-    .string()
-    .min(10, { message: "Phone number must be at least 10 digits." }),
+  phoneNumber: z.string().min(10, {
+    message: "Phone number must be at least 10 digits.",
+  }),
 });
 
 export function ProfileForm() {
@@ -34,19 +36,26 @@ export function ProfileForm() {
     defaultValues: {
       username: "",
       email: "",
-      phonenumber: "",
+      phoneNumber: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
+  const saveFormData = useMutation(api.settings.saveFormData);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      await saveFormData(values);
+      alert("Form submitted successfully!");
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
     console.log(values);
-  }
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
         <FormField
           control={form.control}
           name="username"
@@ -79,7 +88,7 @@ export function ProfileForm() {
         />
         <FormField
           control={form.control}
-          name="phone"
+          name="phoneNumber"
           render={({ field }) => (
             <FormItem>
               <div>
@@ -92,6 +101,21 @@ export function ProfileForm() {
             </FormItem>
           )}
         />
+
+        {/* <FormField
+          control={form.control}
+          render={() => (
+            <FormItem>
+              <div className="flex flex-col gap-2">
+                <FormLabel>Currency</FormLabel>
+                <FormControl>
+                  <DropdownMenuCheckboxes />
+                </FormControl>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
 
         <Button type="submit">Save</Button>
       </form>

@@ -11,9 +11,10 @@ export default defineSchema({
   }).index("byClerkUserId", ["clerkUserId"]),
 
   accounts: defineTable({
-    userId: v.id("users"),
+    userId: v.optional(v.id("users")),
     name: v.string(),
     balance: v.float64(),
+    visible: v.optional(v.boolean()),
   }).index("byUserId", ["userId"]),
 
   transactions: defineTable({
@@ -51,4 +52,10 @@ export default defineSchema({
     type: v.union(v.literal("budget"), v.literal("transaction")),
     read: v.boolean(),
   }).index("byUserId", ["userId"]),
+
+  formSubmissions: defineTable({
+    username: v.string(),
+    email: v.string(),
+    phoneNumber: v.string(),
+  }).index("byEmail", ["email"]),
 });
