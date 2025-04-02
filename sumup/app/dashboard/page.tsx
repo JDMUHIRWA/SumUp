@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Tab from "@/components/tabs";
 import { DataTable } from "./data-table";
 import { Payment, columns } from "./columns";
+import { AccountSettings } from "@/components/account-settings";
 
 async function getData(): Promise<Payment[]> {
   // Fetch data from your API here.
@@ -59,10 +60,8 @@ export default function Dashboard() {
           <h1 className="text-2xl font-semibold text-gray-800 mt-20 sm:mt-10">
             My accounts
           </h1>
-          <div className="w-full grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-[1rem] sm:mt-[1rem] bg-[#FAFAFA]">
-            <StatCard title="Bank of Kigali" value="$1,230" growth="+12%" />
-            <StatCard title="Mobile Money" value="$45,780" growth="+8%" />
-            <StatCard title="Cash Account" value="$320" growth="+15%" />
+          <div className="mt-4 ">
+            <AccountSettings hideCreate={true} />
           </div>
 
           {/* Dashboard Tables/Charts */}
@@ -72,9 +71,9 @@ export default function Dashboard() {
           </div>
 
           {/* Transaction summary */}
-          <h1 className="text-2xl font-semibold text-gray-800 mt-10">
+          <h2 className="text-lg font-semibold text-gray-900 mt-10">
             Transaction Summary
-          </h1>
+          </h2>
 
           <div className="my-4 ">
             <Tab />
