@@ -21,9 +21,11 @@ export default defineSchema({
     userId: v.id("users"),
     accountId: v.id("accounts"),
     type: v.union(v.literal("income"), v.literal("expense")),
-    amount: v.float64(),
-    description: v.optional(v.string()),
-    categoryId: v.optional(v.id("categories")),
+    amount: v.number(),
+    category: v.optional(v.id("categories")),
+    recepient: v.string(),
+    date: v.string(),
+    invoice: v.optional(v.string()),
   })
     .index("byUserId", ["userId"])
     .index("byAccountId", ["accountId"]),

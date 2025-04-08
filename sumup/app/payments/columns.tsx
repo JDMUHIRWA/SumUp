@@ -1,9 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, ArrowUpDown } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
-
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -14,18 +13,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { ArrowUpDown } from "lucide-react";
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Payment = {
   id: string;
   amount: number;
-  status: "pending" | "processing" | "success" | "failed";
-  date: string;
-  recepient: string;
+  accountId: string;
   category: string;
-  invoice: string;
+  recepient: string;
+  date: string;
+  type: "income" | "expense";
+  invoice?: string;
 };
 
 export const columns: ColumnDef<Payment>[] = [
@@ -52,25 +48,20 @@ export const columns: ColumnDef<Payment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "status",
-    header: "Status",
-  },
-  {
     accessorKey: "date",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        className="p-0 w-full justify-start" // Ensures left alignment
+        className="p-0 w-full justify-start"
       >
         Date
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div>{row.getValue("date")}</div>,
   },
   {
-    accessorKey: "category",
+    accessorKey: "categoryName",
     header: ({ column }) => (
       <Button
         variant="ghost"
@@ -81,22 +72,7 @@ export const columns: ColumnDef<Payment>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div>{row.getValue("category")}</div>,
   },
-  // {
-  //   accessorKey: "Recepient",
-  //   header: ({ column }) => {
-  //     return (
-  //       <Button
-  //         variant="ghost"
-  //         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-  //       >
-  //         Recepient
-  //         <ArrowUpDown className="ml-2 h-4 w-4" />
-  //       </Button>
-  //     );
-  //   },
-  // },
   {
     accessorKey: "invoice",
     header: ({ column }) => (
@@ -109,28 +85,62 @@ export const columns: ColumnDef<Payment>[] = [
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
     ),
-    cell: ({ row }) => <div>{row.getValue("invoice")}</div>,
   },
-
   {
     accessorKey: "amount",
-    header: () => <div className="">Amount</div>,
+    header: () => <div>Amount</div>,
     cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"));
+      const amount = row.getValue("amount");
       const formatted = new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
       }).format(amount);
-
       return <div className="font-medium">{formatted}</div>;
     },
   },
-
+  {
+    accessorKey: "accountName",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="p-0 w-full justify-start"
+      >
+        Bank Account
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "recepient",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="p-0 w-full justify-start"
+      >
+        Recepient
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
+  {
+    accessorKey: "type",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="p-0 w-full justify-start"
+      >
+        Type
+        <ArrowUpDown className="ml-2 h-4 w-4" />
+      </Button>
+    ),
+  },
   {
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;
-
       return (
         <div className="flex justify-end mx-5">
           <DropdownMenu>
