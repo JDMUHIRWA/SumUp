@@ -56,10 +56,6 @@ export default function Dashboard() {
 
         <main className="px-4 transition-all duration-500 ease-in-out w-full">
           <Header />
-          {/* Dashboard Stats Section */}
-          <h1 className="text-2xl font-semibold text-gray-800 mt-20 sm:mt-10">
-            My accounts
-          </h1>
           <div className="mt-4 ">
             <AccountSettings hideCreate={true} />
           </div>
