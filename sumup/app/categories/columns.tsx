@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
+import { Row } from "@tanstack/react-table";
 
 export type Category = {
   _id: string;
@@ -51,11 +52,15 @@ export const columns = [
   {
     accessorKey: "name",
     header: "Category",
-    cell: ({ row }: any) => <div className="p-2">{row.getValue("name")}</div>,
+    cell: ({ row }: { row: Row<Category> }) => (
+      <div className="p-2">{row.getValue("name")}</div>
+    ),
   },
   {
     id: "actions",
     header: () => <div className="text-right mx-4">Actions</div>,
-    cell: ({ row }: any) => <ActionsCell category={row.original} />,
+    cell: ({ row }: { row: Row<Category> }) => (
+      <ActionsCell category={row.original} />
+    ),
   },
 ];
