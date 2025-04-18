@@ -10,9 +10,10 @@ import {
 import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Row } from "@tanstack/react-table";
+import type { Id } from "@/convex/_generated/dataModel";
 
 export type Category = {
-  _id: string;
+  _id: Id<"categories">;
   name: string;
 };
 
