@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { SignIn } from "@clerk/nextjs";
 
-export default function Login({
-  searchParams,
-}: {
-  searchParams: { redirectUrl?: string };
-}) {
-  // Use the redirectUrl from searchParams or fallback to "/dashboard"
-  const redirectUrl = searchParams.redirectUrl || "/dashboard";
+type Props = {
+  searchParams?: { redirectUrl?: string };
+};
+
+export default function Login({ searchParams }: Props) {
+  const redirectUrl = searchParams?.redirectUrl || "/dashboard";
 
   return (
     <div className="flex h-screen bg-gradient-to-b from-white to-[#fff5cd]">
@@ -16,9 +15,8 @@ export default function Login({
         <div className="w-[479px] mx-auto">
           {/* Login Form */}
           <div className="space-y-5">
-            {/* Clerk SignIn Component */}
             <SignIn
-              afterSignInUrl={redirectUrl} // Redirect to the specified URL after sign-in
+              afterSignInUrl={redirectUrl}
               appearance={{
                 elements: {
                   formButtonPrimary: "bg-[#E87C3E] hover:bg-[#d66d35]",
