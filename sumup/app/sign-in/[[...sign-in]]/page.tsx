@@ -1,14 +1,12 @@
-"use client"; // 👈 IMPORTANT if you're using Clerk components
+"use client";
 
 import Image from "next/image";
 import { SignIn } from "@clerk/nextjs";
+import { useSearchParams } from "next/navigation";
 
-export default function SignInPage({
-  searchParams,
-}: {
-  searchParams?: { redirectUrl?: string };
-}) {
-  const redirectUrl = searchParams?.redirectUrl || "/dashboard";
+export default function SignInPage() {
+  const searchParams = useSearchParams();
+  const redirectUrl = searchParams.get("redirectUrl") || "/dashboard";
 
   return (
     <div className="flex h-screen bg-gradient-to-b from-white to-[#fff5cd]">
