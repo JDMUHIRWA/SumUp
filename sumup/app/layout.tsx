@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
-import Image from "next/image";
 import { ReactNode } from "react";
-import Link from "next/link";
 // import { ConvexProviderWithClerk } from "convex/react-clerk";
 // import { useAuth } from "@clerk/clerk-react";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -42,11 +40,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <body
           className={`${geistSans.variable} ${geistMono.variable} ${bricolageGrotesque.variable} antialiased`}
         >
-          <div className="flex items-center flex-right m-0 fixed top-0">
-            <Link href="/">
-              <Image src="/Logo.svg" width={207} height={40} alt="SumUp Logo" />
-            </Link>
-          </div>
           <ConvexClientProvider>{children}</ConvexClientProvider>
         </body>
       </html>

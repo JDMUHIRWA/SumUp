@@ -50,10 +50,10 @@ export function AppSidebar() {
   const pathname = usePathname();
   return (
     <>
-      <Sidebar className="bg-black rounded-lg z-50">
+      <Sidebar className="bz-50">
         <SidebarContent className="rounded-tr-lg bg-[#000000]">
           <SidebarGroupLabel className="flex mt-5">
-            <Image src="/logo.svg" alt="SumUp" width={207} height={40} />
+            <Image src="/Logo.svg" alt="SumUp" width={207} height={40} />
           </SidebarGroupLabel>
           <SidebarGroup className="mt-10 bg">
             <SidebarGroupContent>

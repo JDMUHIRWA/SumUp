@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { SignUp } from "@clerk/nextjs";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function Register() {
   const searchParams = useSearchParams();
@@ -11,6 +12,11 @@ export default function Register() {
   return (
     <div className="flex h-screen bg-gradient-to-b from-white to-[#fff5cd]">
       <div className="w-1/2 h-full flex items-center">
+        <div className="flex items-center flex-left m-0 fixed top-0">
+          <Link href="/">
+            <Image src="/Logo.svg" width={207} height={40} alt="SumUp Logo" />
+          </Link>
+        </div>
         <div className="w-[479px] mx-auto space-y-5">
           <SignUp
             afterSignUpUrl={redirectUrl}

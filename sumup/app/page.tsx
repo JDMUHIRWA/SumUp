@@ -1,6 +1,7 @@
 import React from "react";
 import { ArrowRight, PiggyBank, Shield, Sparkles } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   const features = [
@@ -25,6 +26,11 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-white to-[#fff5cd]">
       {/* Hero Section */}
       <div className="flex-1 flex flex-col lg:flex-row items-center justify-center px-6 lg:px-16 py-12 gap-12">
+        <div className="flex items-center w-full  px-6 fixed top-0">
+          <Link href="/">
+            <Image src="/Logo.svg" width={207} height={40} alt="SumUp Logo" />
+          </Link>
+        </div>
         {/* Left Content */}
         <div className="max-w-xl space-y-6  ">
           <h2 className="text-5xl font-bold text-gray-900 leading-tight">
