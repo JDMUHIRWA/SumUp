@@ -1,23 +1,21 @@
 import Image from "next/image";
 import { SignUp } from "@clerk/nextjs";
 
-export default function Register({
-  searchParams,
-}: {
-  searchParams: { redirectUrl?: string };
-}) {
-  const redirectUrl = searchParams.redirectUrl || "/sign-in";
+type Props = {
+  searchParams?: { redirectUrl?: string };
+};
+
+export default function Register({ searchParams }: Props) {
+  const redirectUrl = searchParams?.redirectUrl || "/sign-in";
 
   return (
     <div className="flex h-screen bg-gradient-to-b from-white to-[#fff5cd]">
       {/* Left Section - Register Form */}
       <div className="w-1/2 h-full flex items-center">
         <div className="w-[479px] mx-auto">
-          {/* Register Form */}
           <div className="space-y-5">
-            {/* Clerk SignUp Component */}
             <SignUp
-              afterSignUpUrl={redirectUrl} // Redirect to the specified URL after sign-up
+              afterSignUpUrl={redirectUrl}
               appearance={{
                 elements: {
                   formButtonPrimary: "bg-[#E87C3E] hover:bg-[#d66d35]",
