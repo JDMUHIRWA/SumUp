@@ -17,7 +17,8 @@ interface GlobalDialogProps {
   triggerLabel: string;
   triggerIcon?: ReactNode;
   children: ReactNode;
-  submitLabel: string; // Still useful if used inside children
+  submitLabel: string;
+  onSubmit?: (e: React.FormEvent) => void;
 }
 
 export function GlobalDialog({

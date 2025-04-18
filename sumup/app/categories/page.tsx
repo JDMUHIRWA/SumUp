@@ -35,9 +35,14 @@ export default function Home() {
     }
 
     try {
+      if (!currentUser?._id) {
+        alert("User not loaded yet.");
+        return;
+      }
+
       await createCategory({
         name: name,
-        userId: currentUser?._id || "",
+        userId: currentUser?._id,
       });
 
       // Reset form fields after successful submission
