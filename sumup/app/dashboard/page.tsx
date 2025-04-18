@@ -25,30 +25,6 @@ async function getData(): Promise<Payment[]> {
 const data = await getData();
 
 export default function Dashboard() {
-  function StatCard({
-    title,
-    value,
-  }: {
-    title: string;
-    value: string;
-    growth: string;
-  }) {
-    return (
-      <div className="bg-white rounded-lg p-4 hover:shadow-lg transition duration-300 border border-[#DADADA]">
-        {/* Header */}
-        <div className="bg-[#FFC23D] p-2 flex items-center justify-center h-[35px] rounded-md">
-          <h2 className="text-md font-medium text-black">{title}</h2>
-        </div>
-
-        {/* Content */}
-        <div className="flex justify-between items-center mt-4">
-          <h2 className="text-md font-semibold text-gray-800">Balance</h2>
-          <h1 className="text-3xl font-semibold text-gray-800">{value}</h1>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full">
