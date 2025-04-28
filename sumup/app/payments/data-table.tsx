@@ -32,6 +32,7 @@ import {
 } from "@/components/ui/table";
 
 import { Button } from "@/components/ui/button";
+import TransactionDialog from "@/components/transaction-dialog";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -81,6 +82,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         /> */}
+        <TransactionDialog />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" className="ml-auto">

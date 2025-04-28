@@ -31,10 +31,10 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
   const deleteAcc = useMutation(api.accounts.deleteAccount);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold text-gray-900">My Accounts</h2>
+
+      <div className="flex justify-end mb-4">
         {!hideCreate && <CreateAccountDialog userId={user} />}
       </div>
 
@@ -43,18 +43,18 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
         {accounts?.map((account) => (
           <div
             key={account._id}
-            className="p-5 bg-white border border-gray-200 rounded-lg shadow-sm"
+            className="p-5 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
           >
-            <div className="bg-[#FFC23D] text-black font-medium text-center py-2 rounded-md">
+            <div className="bg-[#FFC23D] text-black text-center font-medium text-base py-2 rounded-md">
               {account.name}
             </div>
 
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex justify-between items-center mt-6">
               <div>
-                <p className="text-sm text-gray-600">Balance</p>
-                <p className="text-base font-medium mt-1">
+                <p className="text-sm text-muted-foreground">Balance</p>
+                <p className="text-lg font-semibold mt-1">
                   {account.visible
-                    ? `${account.balance.toLocaleString()} RFW`
+                    ? `${account.balance.toLocaleString()} RWF`
                     : "XXXXXXXXXX"}
                 </p>
               </div>
@@ -71,7 +71,7 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
                     })
                   }
                 >
-                  {account.visible ? <Eye size={18} /> : <EyeOff size={18} />}
+                  {account.visible ? <Eye size={20} /> : <EyeOff size={20} />}
                 </Button>
                 <Button
                   variant="ghost"
@@ -79,7 +79,7 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
                   className="hover:bg-red-100"
                   onClick={() => deleteAcc({ id: account._id })}
                 >
-                  <Trash size={18} className="text-red-500" />
+                  <Trash size={20} className="text-red-500" />
                 </Button>
               </div>
             </div>
@@ -109,7 +109,7 @@ function CreateAccountDialog({ userId }: { userId?: string }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" className="flex items-center gap-2">
+        <Button variant="default">
           <Plus size={18} />
           Add Account
         </Button>
@@ -117,16 +117,16 @@ function CreateAccountDialog({ userId }: { userId?: string }) {
 
       <DialogContent className="max-w-md p-6 bg-white rounded-lg shadow-lg">
         <DialogHeader>
-          <DialogTitle className="text-lg font-semibold">
+          <DialogTitle className="text-2xl font-semibold text-gray-900">
             Create New Account
           </DialogTitle>
         </DialogHeader>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 mt-4">
           <input
             type="text"
             placeholder="Account Name"
-            className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFC23D] focus:outline-none text-sm"
+            className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFC23D] focus:outline-none text-sm"
             value={newAccount.name}
             onChange={(e) =>
               setNewAccount({ ...newAccount, name: e.target.value })
@@ -136,7 +136,7 @@ function CreateAccountDialog({ userId }: { userId?: string }) {
           <input
             type="number"
             placeholder="Balance"
-            className="p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFC23D] focus:outline-none text-sm"
+            className="p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-[#FFC23D] focus:outline-none text-sm"
             value={newAccount.balance}
             onChange={(e) =>
               setNewAccount({ ...newAccount, balance: Number(e.target.value) })
@@ -144,16 +144,18 @@ function CreateAccountDialog({ userId }: { userId?: string }) {
           />
         </div>
 
-        <DialogFooter className="flex justify-end gap-2 mt-4">
+        <DialogFooter className="flex justify-end gap-2 mt-6">
           <Button
             onClick={handleNewAccount}
             className="bg-[#FFC23D] hover:bg-[#e5b02c] text-black font-medium"
           >
             Create
           </Button>
-          <Button variant="outline" className="border-gray-300 text-gray-900">
-            Cancel
-          </Button>
+          <DialogTrigger asChild>
+            <Button variant="outline" className="border-gray-300 text-gray-900">
+              Cancel
+            </Button>
+          </DialogTrigger>
         </DialogFooter>
       </DialogContent>
     </Dialog>

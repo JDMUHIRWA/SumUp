@@ -18,7 +18,7 @@ export const create = mutation({
 
 // getting the budget by user id
 export const getBudgetsByUser = query({
-  args: { userId: v.id("users") },
+  args: { userId: v.optional(v.string()) },
   handler: async (ctx, args) => {
     return await ctx.db
       .query("budgets")
@@ -26,5 +26,3 @@ export const getBudgetsByUser = query({
       .collect();
   },
 });
-
-

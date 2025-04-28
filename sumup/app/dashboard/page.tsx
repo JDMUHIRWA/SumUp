@@ -32,7 +32,7 @@ export default function Dashboard() {
 
         <main className="px-4 transition-all duration-500 ease-in-out w-full">
           <Header />
-          <div className="mt-4 ">
+          <div className="mt-4 flex ">
             <AccountSettings hideCreate={true} />
           </div>
 

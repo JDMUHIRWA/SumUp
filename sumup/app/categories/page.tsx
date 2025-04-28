@@ -60,7 +60,7 @@ export default function Home() {
         <AppSidebar />
         <main className="px-4 transition-all duration-500 ease-in-out w-full">
           <Header />
-          <div className="flex justify-between mx-auto mt-28">
+          <div className="flex justify-between mx-auto mt-4">
             <h2 className="text-lg font-medium ">My categories</h2>
             <div className="flex gap-4 mx-4">
               <GlobalDialog

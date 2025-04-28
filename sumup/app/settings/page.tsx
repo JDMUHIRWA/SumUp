@@ -14,7 +14,7 @@ export default function Settings() {
         <main className="px-4  transition-all duration-500 ease-in-out w-full">
           <Header />
 
-          <div className="mt-24">
+          <div className="mt-4">
             <Tab />
           </div>
         </main>

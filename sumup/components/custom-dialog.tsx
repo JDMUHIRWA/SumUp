@@ -7,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ReactNode } from "react";
@@ -27,6 +28,8 @@ export function GlobalDialog({
   triggerLabel,
   triggerIcon,
   children,
+  submitLabel,
+  onSubmit,
 }: GlobalDialogProps) {
   return (
     <Dialog>
@@ -40,7 +43,25 @@ export function GlobalDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        {children}
+
+        {/* Wrap children inside a form if onSubmit is provided */}
+        {onSubmit ? (
+          <form onSubmit={onSubmit} className="space-y-4">
+            {children}
+            <DialogFooter>
+              <Button type="submit" variant="default">
+                {submitLabel}
+              </Button>
+            </DialogFooter>
+          </form>
+        ) : (
+          <>
+            {children}
+            <DialogFooter>
+              <Button variant="default">{submitLabel}</Button>
+            </DialogFooter>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );

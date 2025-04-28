@@ -24,7 +24,7 @@ export default function Header() {
   };
 
   return (
-    <div className="fixed w-full h-20 mb-10 bg-white border-b-2 border-[#FFAE00] shadow-md z-40">
+    <div className="w-full h-20 bg-white border-b-2 border-[#FFAE00] shadow-md z-40">
       <div className="h-full px-4 py-3 flex items-center justify-between ">
         {/* Hamburger Menu Button */}
         <SidebarTrigger className="fixed top-4 p-2 w-10 h-10 bg-[#FAFAFA] text-black rounded shadow-md flex flex-col justify-center items-center gap-1" />
