@@ -33,8 +33,7 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
   return (
     <div className="space-y-4">
       {/* Header */}
-
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-4 ">
         {!hideCreate && <CreateAccountDialog userId={user} />}
       </div>
 
@@ -45,42 +44,45 @@ export function AccountSettings({ hideCreate = false }: AccountSettingsProps) {
             key={account._id}
             className="p-5 bg-white border border-gray-200 rounded-lg shadow-sm flex flex-col justify-between"
           >
-            <div className="bg-[#FFC23D] text-black text-center font-medium text-base py-2 rounded-md">
+            <div className="bg-[#FFC23D] text-black text-center font-medium text-normal py-2 rounded-md">
               {account.name}
             </div>
 
-            <div className="flex justify-between items-center mt-6">
-              <div>
-                <p className="text-sm text-muted-foreground">Balance</p>
-                <p className="text-lg font-semibold mt-1">
-                  {account.visible
-                    ? `${account.balance.toLocaleString()} RWF`
-                    : "XXXXXXXXXX"}
-                </p>
-              </div>
+            <div className="flex justify-between items-center mt-2 px-4">
+              <div className="flex items-center justify-center w-full">
+                {/* Left side: Balance label + value */}
+                <div className="flex flex-col justify-center">
+                  <p className="text-base font-semibold">
+                    {account.visible
+                      ? `${account.balance.toLocaleString()} RWF`
+                      : "XXXXXXXXXX"}
+                  </p>
+                </div>
 
-              <div className="flex space-x-2">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="hover:bg-gray-100"
-                  onClick={() =>
-                    toggleVisibility({
-                      id: account._id,
-                      visible: !account.visible,
-                    })
-                  }
-                >
-                  {account.visible ? <Eye size={20} /> : <EyeOff size={20} />}
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="hover:bg-red-100"
-                  onClick={() => deleteAcc({ id: account._id })}
-                >
-                  <Trash size={20} className="text-red-500" />
-                </Button>
+                {/* Right side: Eye + Trash buttons */}
+                <div className="flex">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hover:bg-orange-100"
+                    onClick={() =>
+                      toggleVisibility({
+                        id: account._id,
+                        visible: !account.visible,
+                      })
+                    }
+                  >
+                    {account.visible ? <Eye size={18} /> : <EyeOff size={18} />}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="hover:bg-red-100"
+                    onClick={() => deleteAcc({ id: account._id })}
+                  >
+                    <Trash size={18} className="text-red-500" />
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
