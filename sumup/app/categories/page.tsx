@@ -62,7 +62,7 @@ export default function Home() {
           <Header />
           <div className="flex justify-between mx-auto mt-4">
             <h2 className="text-lg font-medium ">My categories</h2>
-            <div className="flex gap-4 mx-4">
+            <div className="flex gap-4 mx-4 ">
               <GlobalDialog
                 title="Create New Category"
                 description="Please provide the details for the new category."

@@ -10,7 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
+import { ReactNode, FormEvent } from "react";
 
 interface GlobalDialogProps {
   title: string;
@@ -19,7 +19,7 @@ interface GlobalDialogProps {
   triggerIcon?: ReactNode;
   children: ReactNode;
   submitLabel: string;
-  onSubmit?: (e: React.FormEvent) => void;
+  onSubmit?: (e: FormEvent) => void;
 }
 
 export function GlobalDialog({
@@ -34,34 +34,37 @@ export function GlobalDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="default" className="bg-[#ffc23c]">
+        <Button variant="default" className="bg-[#ffc23c] text-black">
           {triggerIcon} {triggerLabel}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>{title}</DialogTitle>
-          <DialogDescription>{description}</DialogDescription>
-        </DialogHeader>
+      <DialogContent className="w-[95vw] max-w-4xl max-h-[80vh] overflow-y-auto sm:rounded-4xl p-0">
+        <div className="p-6">
+          <DialogHeader>
+            <DialogTitle>{title}</DialogTitle>
+            <DialogDescription>{description}</DialogDescription>
+          </DialogHeader>
 
-        {/* Wrap children inside a form if onSubmit is provided */}
-        {onSubmit ? (
-          <form onSubmit={onSubmit} className="space-y-4">
-            {children}
-            <DialogFooter>
-              <Button type="submit" variant="default">
-                {submitLabel}
-              </Button>
-            </DialogFooter>
-          </form>
-        ) : (
-          <>
-            {children}
-            <DialogFooter>
-              <Button variant="default">{submitLabel}</Button>
-            </DialogFooter>
-          </>
-        )}
+          {onSubmit ? (
+            <form onSubmit={onSubmit} className="space-y-4 mt-4">
+              {children}
+              <DialogFooter className="mt-6">
+                <Button type="submit" className="bg-[#ffc23c] text-black">
+                  {submitLabel}
+                </Button>
+              </DialogFooter>
+            </form>
+          ) : (
+            <>
+              <div className="mt-4">{children}</div>
+              <DialogFooter className="mt-6">
+                <Button className="bg-[#ffc23c] text-black">
+                  {submitLabel}
+                </Button>
+              </DialogFooter>
+            </>
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   );

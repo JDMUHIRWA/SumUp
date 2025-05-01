@@ -3,10 +3,9 @@
 import Header from "@/components/header";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
-import Tab from "@/components/tabs";
+
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import TransactionDialog from "@/components/transaction-dialog";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Id } from "@/convex/_generated/dataModel";
@@ -27,9 +26,6 @@ export default function Payments() {
         <main className="px-4 transition-all duration-500 ease-in-out w-full">
           <Header />
           <div className="mx-auto relative">
-            {/* <div className="">
-              <Tab />
-            </div> */}
             <DataTable columns={columns} data={data ?? []} />
           </div>
         </main>

@@ -1,11 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import * as React from "react";
-import { Id } from "@/convex/_generated/dataModel";
-
 import {
   Form,
   FormControl,
@@ -15,89 +9,56 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useMutation, useQuery } from "convex/react";
-import { api } from "@/convex/_generated/api";
-import { Button } from "./ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-
+import { z } from "zod";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { Id } from "@/convex/_generated/dataModel";
+import { format } from "date-fns";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "./ui/button";
+import { useForm } from "react-hook-form";
 
 const formSchema = z.object({
-  amount: z.number().min(0, { message: "Amount must be a positive number." }),
-  category: z.string().min(2, { message: "Category must be selected." }),
-  date: z.string({ message: "Invalid date." }),
-  invoiceNumber: z.string({ message: "Invoice number is required." }),
+  amount: z.number().min(0),
+  category: z.string().min(2),
+  date: z.string(),
+  invoiceNumber: z.string(),
   description: z.string().optional(),
-  type: z.enum(["income", "expense"], {
-    errorMap: () => ({ message: "Type is required." }),
-  }),
-  recepient: z.string().min(2, {
-    message: "Recepient must be at least 2 characters.",
-  }),
-  accountId: z.string().min(2, { message: "Account must be selected." }),
+  type: z.enum(["income", "expense"]),
+  recepient: z.string().min(2),
+  accountId: z.string().min(2),
 });
 
-export function TransactionForm() {
-  const currentUser = useQuery(api.users.current);
-  const user = currentUser ? currentUser._id : undefined;
-
+export function TransactionForm({
+  form,
+  userId,
+}: {
+  form: ReturnType<typeof useForm<z.infer<typeof formSchema>>>;
+  userId: Id<"users"> | undefined;
+}) {
   const categories = useQuery(
     api.categories.getCategoriesByUser,
-    user ? { userId: user } : "skip"
+    userId ? { userId } : "skip"
   );
+
   const accounts = useQuery(
     api.accounts.getAccountsByUser,
-    user ? { userId: user } : "skip"
+    userId ? { userId } : "skip"
   );
-
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      amount: 0,
-      category: "",
-      date: "",
-      invoiceNumber: "",
-      type: "expense",
-      recepient: "",
-      accountId: "",
-    },
-  });
-
-  const saveFormData = useMutation(api.transactions.createTransaction);
-
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      const transactionData = {
-        category: values.category as Id<"categories">,
-        accountId: values.accountId as Id<"accounts">,
-        invoiceNumber: values.invoiceNumber,
-        amount: values.amount,
-        type: values.type,
-        recepient: values.recepient,
-        date: values.date,
-        description: values.description,
-      };
-
-      await saveFormData(transactionData);
-      alert("Form submitted successfully!");
-      form.reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-    }
-    console.log(values);
-  };
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4"
+        id="transaction-form"
+        onSubmit={(e) => e.preventDefault()} // Real submission handled outside
+        className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 p-4"
       >
         <FormField
           control={form.control}
@@ -117,7 +78,6 @@ export function TransactionForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="category"
@@ -141,7 +101,6 @@ export function TransactionForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="date"
@@ -152,17 +111,13 @@ export function TransactionForm() {
                 <PopoverTrigger asChild>
                   <FormControl>
                     <Button
-                      variant={"outline"}
+                      variant="outline"
                       className={cn(
-                        "w-[240px] pl-3 text-left font-normal",
+                        "w-full sm:w-[240px] pl-3 text-left font-normal",
                         !field.value && "text-muted-foreground"
                       )}
                     >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
+                      {field.value ? format(field.value, "PPP") : "Pick a date"}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                     </Button>
                   </FormControl>
@@ -183,7 +138,6 @@ export function TransactionForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="invoiceNumber"
@@ -191,17 +145,12 @@ export function TransactionForm() {
             <FormItem>
               <FormLabel>Invoice Number</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Invoice Number"
-                  {...field}
-                  value={field.value ?? ""}
-                />
+                <Input placeholder="Invoice Number" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="recepient"
@@ -209,17 +158,12 @@ export function TransactionForm() {
             <FormItem>
               <FormLabel>Recepient</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Recepient"
-                  {...field}
-                  value={field.value ?? ""}
-                />
+                <Input placeholder="Recepient" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="type"
@@ -239,7 +183,6 @@ export function TransactionForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="accountId"
@@ -251,7 +194,7 @@ export function TransactionForm() {
                   {...field}
                   className="w-full rounded border px-2 py-2 text-sm"
                 >
-                  <option>Select an account</option>
+                  <option value="">Select an account</option>
                   {accounts?.map((acc) => (
                     <option key={acc._id} value={acc._id}>
                       {acc.name}
@@ -263,7 +206,6 @@ export function TransactionForm() {
             </FormItem>
           )}
         />
-
         <FormField
           control={form.control}
           name="description"
@@ -271,22 +213,12 @@ export function TransactionForm() {
             <FormItem className="sm:col-span-2">
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Input
-                  placeholder="Description"
-                  {...field}
-                  value={field.value ?? ""}
-                />
+                <Input placeholder="Description" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-
-        <div className="sm:col-span-2">
-          <Button type="submit" className="w-full bg-[#ffc23c] text-black">
-            Submit
-          </Button>
-        </div>
       </form>
     </Form>
   );
